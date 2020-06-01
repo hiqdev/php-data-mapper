@@ -1,14 +1,14 @@
 {
-    "name": "hiqdev/yii2-data-mapper",
+    "name": "hiqdev/php-data-mapper",
     "type": "yii2-extension",
-    "description": "Data Mapper for Yii2",
+    "description": "Data Mapper",
     "keywords": [
         "yii2",
         "data mapper",
         "orm",
         "database"
     ],
-    "homepage": "https://github.com/hiqdev/yii2-data-mapper",
+    "homepage": "https://github.com/hiqdev/php-data-mapper",
     "license": "BSD-3-Clause",
     "support": {
         "email": "support@hiqdev.com",
@@ -53,8 +53,8 @@
     },
     "autoload": {
         "psr-4": {
-            "hiqdev\\yii\\DataMapper\\": "src",
-            "hiqdev\\yii\\DataMapper\\tests\\": "tests"
+            "hiqdev\\DataMapper\\": "src",
+            "hiqdev\\DataMapper\\tests\\": "tests"
         }
     },
     "extra": {

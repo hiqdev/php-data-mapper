@@ -8,10 +8,9 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-return [
-    'db.host' => '',
-    'db.port' => '',
-    'db.name' => '',
-    'db.user' => '',
-    'db.password' => '',
-];
+namespace hiqdev\DataMapper\Query;
+
+interface JoinedFieldInterface
+{
+    public function getJoinName(): string;
+}

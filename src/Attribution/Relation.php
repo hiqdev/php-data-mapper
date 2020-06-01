@@ -8,10 +8,10 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-return [
-    'db.host' => '',
-    'db.port' => '',
-    'db.name' => '',
-    'db.user' => '',
-    'db.password' => '',
-];
+namespace hiqdev\DataMapper\Schema;
+
+interface Relation
+{
+    public const TARGET     = 'TARGET';
+    public const TYPE       = 'TYPE';
+}

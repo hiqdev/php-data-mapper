@@ -8,10 +8,13 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-return [
-    'db.host' => '',
-    'db.port' => '',
-    'db.name' => '',
-    'db.user' => '',
-    'db.password' => '',
-];
+namespace hiqdev\DataMapper\Hydrator;
+
+/**
+ * Class NotConfiguredException
+ *
+ * @author Andrii Vasyliev <sol@hiqdev.com>
+ */
+class NotConfiguredException extends \Exception
+{
+}

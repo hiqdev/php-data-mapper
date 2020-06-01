@@ -1,54 +1,39 @@
 <?php
 /**
- * Data Mapper for Yii2
+ * Data Mapper
  *
- * @link      https://github.com/hiqdev/yii2-data-mapper
- * @package   yii2-data-mapper
+ * @link      https://github.com/hiqdev/php-data-mapper
+ * @package   php-data-mapper
  * @license   BSD-3-Clause
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
 $components = [
     'entityManager' => [
-        '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
-    ],
-    'db' => [
-        '__class' => \hiqdev\yii\DataMapper\components\Connection::class,
-        'charset'   => 'utf8',
-        'dsn'       => 'pgsql:dbname=' . $params['db.name']
-                        . (!empty($params['db.host']) ? (';host=' . $params['db.host']) : '')
-                        . (!empty($params['db.port']) ? (';port=' . $params['db.port']) : ''),
-        'username'  => $params['db.user'],
-        'password'  => $params['db.password'],
-        'queryBuilder' => [
-            'expressionBuilders' => [
-                \hiqdev\yii\DataMapper\expressions\CallExpression::class => \hiqdev\yii\DataMapper\expressions\CallExpressionBuilder::class,
-                \hiqdev\yii\DataMapper\expressions\HstoreExpression::class => \hiqdev\yii\DataMapper\expressions\HstoreExpressionBuilder::class,
-            ],
-        ],
+        '__class' => \hiqdev\DataMapper\EntityManager::class,
     ],
 ];
 
 $singletons = [
-    \hiqdev\yii\DataMapper\query\FieldFactoryInterface::class => \hiqdev\yii\DataMapper\query\FieldFactory::class,
-    \hiqdev\yii\DataMapper\components\ConnectionInterface::class => function ($container) {
+    \hiqdev\DataMapper\Query\FieldFactoryInterface::class => \hiqdev\DataMapper\Query\FieldFactory::class,
+    \hiqdev\DataMapper\Repository\ConnectionInterface::class => function ($container) {
         return class_exists('Yii') ? \Yii::$app->get('db') : $container->get('db');
     },
-    \hiqdev\yii\DataMapper\components\EntityManagerInterface::class => [
-        '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
+    \hiqdev\DataMapper\EntityManagerInterface::class => [
+        '__class' => \hiqdev\DataMapper\EntityManager::class,
         'repositories' => [
         ],
     ],
-    \Zend\Hydrator\HydratorInterface::class => \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class,
-    \Laminas\Hydrator\HydratorInterface::class => \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class,
-    \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class => [
+    \Zend\Hydrator\HydratorInterface::class => \hiqdev\DataMapper\Hydrator\ConfigurableAggregateHydrator::class,
+    \Laminas\Hydrator\HydratorInterface::class => \hiqdev\DataMapper\Hydrator\ConfigurableAggregateHydrator::class,
+    \hiqdev\DataMapper\Hydrator\ConfigurableAggregateHydrator::class => [
         'hydrators' => [
-            \DateTimeImmutable::class => \hiqdev\yii\DataMapper\hydrator\DateTimeImmutableHydrator::class,
+            \DateTimeImmutable::class => \hiqdev\DataMapper\Hydrator\DateTimeImmutableHydrator::class,
          ],
     ],
-    \hiqdev\yii\DataMapper\query\attributes\validators\Factory\AttributeValidatorFactoryInterface::class => \hiqdev\yii\DataMapper\query\attributes\validators\AttributeValidatorFactory::class,
-    \hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilderInterface::class => \hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilder::class,
-    \hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilderFactoryInterface::class => \hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilderFactory::class,
+    \hiqdev\DataMapper\Attribute\Validator\Factory\AttributeValidatorFactoryInterface::class => \hiqdev\DataMapper\Attribute\Validator\AttributeValidatorFactory::class,
+    \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderInterface::class => \hiqdev\DataMapper\Query\Builder\QueryConditionBuilder::class,
+    \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderFactoryInterface::class => \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderFactory::class,
 ];
 
 return class_exists(Yiisoft\Factory\Definitions\Reference::class)

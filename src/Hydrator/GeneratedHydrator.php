@@ -8,10 +8,12 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-return [
-    'db.host' => '',
-    'db.port' => '',
-    'db.name' => '',
-    'db.user' => '',
-    'db.password' => '',
-];
+namespace hiqdev\DataMapper\Hydrator;
+
+use Zend\Hydrator\HydratorInterface;
+
+abstract class GeneratedHydrator implements HydratorInterface
+{
+    use RootHydratorAwareTrait;
+    use GeneratedHydratorTrait;
+}

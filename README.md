@@ -1,13 +1,13 @@
-# Yii2 Data Mapper
+# Data Mapper
 
-**Data Mapper for Yii2**
+**Data Mapper**
 
-[![Latest Stable Version](https://poser.pugx.org/hiqdev/yii2-data-mapper/v/stable)](https://packagist.org/packages/hiqdev/yii2-data-mapper)
-[![Total Downloads](https://poser.pugx.org/hiqdev/yii2-data-mapper/downloads)](https://packagist.org/packages/hiqdev/yii2-data-mapper)
-[![Build Status](https://img.shields.io/travis/hiqdev/yii2-data-mapper.svg)](https://travis-ci.org/hiqdev/yii2-data-mapper)
-[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hiqdev/yii2-data-mapper.svg)](https://scrutinizer-ci.com/g/hiqdev/yii2-data-mapper/)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/yii2-data-mapper.svg)](https://scrutinizer-ci.com/g/hiqdev/yii2-data-mapper/)
-[![Dependency Status](https://www.versioneye.com/php/hiqdev:yii2-data-mapper/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:yii2-data-mapper/dev-master)
+[![Latest Stable Version](https://poser.pugx.org/hiqdev/php-data-mapper/v/stable)](https://packagist.org/packages/hiqdev/php-data-mapper)
+[![Total Downloads](https://poser.pugx.org/hiqdev/php-data-mapper/downloads)](https://packagist.org/packages/hiqdev/php-data-mapper)
+[![Build Status](https://img.shields.io/travis/hiqdev/php-data-mapper.svg)](https://travis-ci.org/hiqdev/php-data-mapper)
+[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hiqdev/php-data-mapper.svg)](https://scrutinizer-ci.com/g/hiqdev/php-data-mapper/)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/php-data-mapper.svg)](https://scrutinizer-ci.com/g/hiqdev/php-data-mapper/)
+[![Dependency Status](https://www.versioneye.com/php/hiqdev:php-data-mapper/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:php-data-mapper/dev-master)
 
 [Data Mapper] based on Yii2 data base abstraction.
 
@@ -26,18 +26,18 @@ DATA         | Storage                     | DB, API, Queue, File System
 
 ## Installation
 
-The preferred way to install this yii2-extension is through [composer](http://getcomposer.org/download/).
+The preferred way to install this package is through [composer](http://getcomposer.org/download/).
 
 Either run
 
 ```sh
-php composer.phar require "hiqdev/yii2-data-mapper"
+php composer.phar require "hiqdev/php-data-mapper"
 ```
 
 or add
 
 ```json
-"hiqdev/yii2-data-mapper": "*"
+"hiqdev/php-data-mapper": "*"
 ```
 
 to the require section of your composer.json.

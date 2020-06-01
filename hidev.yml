@@ -1,11 +1,11 @@
 package:
     type:           yii2-extension
-    name:           yii2-data-mapper
-    title:          Data Mapper for Yii2
-    headline:       Yii2 Data Mapper
+    name:           php-data-mapper
+    title:          Data Mapper
+    headline:       Data Mapper
     keywords:       yii2, data mapper, orm, database
     description:    |
-        [Data Mapper] based on Yii2 data base abstraction.
+        Generalized [Data Mapper].
 
         Deliberately simple (no implicit behavior) library aimed to separate data persistence logics from data own logics.
 
