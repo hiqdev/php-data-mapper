@@ -24,9 +24,9 @@ $singletons = [
         'repositories' => [
         ],
     ],
-    \Zend\Hydrator\HydratorInterface::class => \hiqdev\DataMapper\Hydrator\ConfigurableAggregateHydrator::class,
-    \Laminas\Hydrator\HydratorInterface::class => \hiqdev\DataMapper\Hydrator\ConfigurableAggregateHydrator::class,
-    \hiqdev\DataMapper\Hydrator\ConfigurableAggregateHydrator::class => [
+    \Zend\Hydrator\HydratorInterface::class => \hiqdev\DataMapper\Hydrator\ConfigurableHydrator::class,
+    \Laminas\Hydrator\HydratorInterface::class => \hiqdev\DataMapper\Hydrator\ConfigurableHydrator::class,
+    \hiqdev\DataMapper\Hydrator\ConfigurableHydrator::class => [
         'hydrators' => [
             \DateTimeImmutable::class => \hiqdev\DataMapper\Hydrator\DateTimeImmutableHydrator::class,
          ],

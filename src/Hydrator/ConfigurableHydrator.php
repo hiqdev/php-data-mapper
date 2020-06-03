@@ -16,11 +16,11 @@ use Zend\Hydrator\HydrationInterface;
 use Zend\Hydrator\HydratorInterface;
 
 /**
- * Class ConfigurableAggregateHydrator.
+ * Class ConfigurableHydrator.
  *
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
-class ConfigurableAggregateHydrator implements HydratorInterface
+class ConfigurableHydrator implements HydratorInterface
 {
     /**
      * @var HydrationInterface[]
