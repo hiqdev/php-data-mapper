@@ -40,7 +40,6 @@ class ConfigurableHydrator implements HydratorInterface
     /**
      * @param string $className
      * @throws NotConfiguredException
-     * @throws \yii\di\NotInstantiableException
      * @return HydrationInterface|ExtractionInterface
      */
     protected function getHydrator($className)

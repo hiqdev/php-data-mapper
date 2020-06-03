@@ -18,7 +18,7 @@ use hiqdev\DataMapper\Query\Field\JoinedFieldInterface;
 use hiqdev\DataMapper\Query\Field\SQLFieldInterface;
 use hiqdev\DataMapper\Query\Join\Join;
 use hiqdev\DataMapper\Query\Join\LeftJoin;
-use yii\base\InvalidConfigException;
+use RuntimeException;
 
 abstract class Query extends \yii\db\Query
 {
@@ -41,7 +41,7 @@ abstract class Query extends \yii\db\Query
         $this->queryBuilder->setQuery($this);
 
         if (!isset($this->attributionClass)) {
-            throw new InvalidConfigException('Property "attributionClass" must be set');
+            throw new RuntimeException('Property "attributionClass" must be set');
         }
     }
 
@@ -164,7 +164,7 @@ abstract class Query extends \yii\db\Query
         $joins = $this->joins();
 
         if (!isset($joins[$name])) {
-            throw new InvalidConfigException('Join named "' . $name . '" does not exist.');
+            throw new RuntimeException('Join named "' . $name . '" does not exist.');
         }
 
         return $joins[$name];

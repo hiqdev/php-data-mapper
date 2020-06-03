@@ -12,7 +12,7 @@ namespace hiqdev\DataMapper\Attribution;
 
 use hiqdev\DataMapper\Attribute\AttributeInterface;
 use hiqdev\DataMapper\Schema\Relation;
-use yii\base\InvalidConfigException;
+use RuntimeException;
 
 /**
  * Class AbstractModel.
@@ -33,13 +33,13 @@ abstract class AbstractAttribution implements AttributionInterface
 
     /**
      * @param string $name
-     * @throws InvalidConfigException
+     * @throws RuntimeException
      * @return string
      */
     public function getRelation($name)
     {
         if (!$this->hasRelation($name)) {
-            throw new InvalidConfigException('Relation "' . $name . '" is not available within ' . static::class);
+            throw new RuntimeException('Relation "' . $name . '" is not available within ' . static::class);
         }
 
         $relation = $this->relations()[$name];
@@ -52,12 +52,12 @@ abstract class AbstractAttribution implements AttributionInterface
 
     /**
      * @param $name
-     * @throws InvalidConfigException
+     * @throws RuntimeException
      */
     public function getAttribute(string $name): AttributeInterface
     {
         if (!$this->hasAttribute($name)) {
-            throw new InvalidConfigException('Attribute "' . $name . '" is not available within ' . static::class);
+            throw new RuntimeException('Attribute "' . $name . '" is not available within ' . static::class);
         }
 
         $className = $this->attributes()[$name];

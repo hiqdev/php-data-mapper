@@ -13,8 +13,6 @@ namespace hiqdev\DataMapper\Repository;
 use hiqdev\DataMapper\Query\Query;
 use hiqdev\DataMapper\Query\Specification;
 use hiqdev\yii\compat\yii;
-use yii\base\InvalidConfigException;
-use yii\base\UnknownMethodException;
 use yii\db\Connection;
 
 abstract class BaseRepository extends \yii\base\Component implements RepositoryInterface
@@ -176,11 +174,11 @@ abstract class BaseRepository extends \yii\base\Component implements RepositoryI
 
     protected function joinRelation($relationName, &$rows)
     {
-        try {
-            call_user_func_array([$this, 'join' . $relationName], [&$rows]);
-        } catch (UnknownMethodException $e) {
-            throw new InvalidConfigException('Do not know how to join relation "' . $relationName . '"');
+        $method = 'join' . $relationName;
+        if (!method_exists($this, $method)) {
+            throw new \RuntimeException("Do not know how to join relation '$relationName'");
         }
+        $this->$method($rows);
     }
 
     protected function buildSelectQuery(Specification $specification)

@@ -10,9 +10,7 @@
 
 namespace hiqdev\DataMapper\Validator;
 
-use yii\base\Exception;
-
-class AttributeValidationException extends Exception
+class AttributeValidationException extends \RuntimeException
 {
     public function getName()
     {

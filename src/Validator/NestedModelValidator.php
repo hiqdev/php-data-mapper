@@ -10,8 +10,6 @@
 
 namespace hiqdev\DataMapper\Validator;
 
-use yii\base\InvalidConfigException;
-use yii\base\InvalidParamException;
 use yii\base\Model;
 use yii\validators\Validator;
 
@@ -22,7 +20,7 @@ class NestedModelValidator extends Validator
     public function init()
     {
         if (!isset($this->modelClass)) {
-            throw new InvalidConfigException('Property "modelClass" is missing');
+            throw new \RuntimeException('Property "modelClass" is missing');
         }
 
         parent::init();
@@ -60,7 +58,7 @@ class NestedModelValidator extends Validator
     protected function validateValue($model)
     {
         if (!$model instanceof Model) {
-            throw new InvalidParamException('Passed value must be instance of Model');
+            throw new \RuntimeException('Passed value must be instance of Model');
         }
 
         if (!$model->validate()) {
