@@ -10,8 +10,6 @@
 
 namespace hiqdev\DataMapper\Query\Join;
 
-use hiqdev\DataMapper\Query\Join\Join;
-
 class LeftJoin extends Join
 {
 }

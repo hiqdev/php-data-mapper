@@ -11,7 +11,6 @@
 namespace hiqdev\DataMapper\Repository;
 
 use Exception;
-use hiqdev\DataMapper\Repository\BaseRepository;
 
 interface EntityManagerInterface
 {

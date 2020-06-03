@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace hiqdev\DataMapper\Query\Builder;
 
-use hiqdev\DataMapper\Query\Builder\QueryConditionBuilderInterface;
 use hiqdev\DataMapper\Query\Query;
 use hiqdev\DataMapper\Query\Specification;
 use yii\helpers\ArrayHelper;

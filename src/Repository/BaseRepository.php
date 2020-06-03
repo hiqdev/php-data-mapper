@@ -10,11 +10,9 @@
 
 namespace hiqdev\DataMapper\Repository;
 
-use hiqdev\yii\compat\yii;
-use hiqdev\DataMapper\Repository\ConnectionInterface;
-use hiqdev\DataMapper\Repository\EntityManagerInterface;
 use hiqdev\DataMapper\Query\Query;
 use hiqdev\DataMapper\Query\Specification;
+use hiqdev\yii\compat\yii;
 use yii\base\InvalidConfigException;
 use yii\base\UnknownMethodException;
 use yii\db\Connection;

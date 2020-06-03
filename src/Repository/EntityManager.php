@@ -10,7 +10,6 @@
 
 namespace hiqdev\DataMapper\Repository;
 
-use hiqdev\DataMapper\Repository\BaseRepository;
 use yii\di\Container;
 use Zend\Hydrator\HydratorInterface;
 

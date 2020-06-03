@@ -14,11 +14,11 @@ use hiqdev\DataMapper\Attribution\AbstractAttribution;
 use hiqdev\DataMapper\Attribution\AttributionInterface;
 use hiqdev\DataMapper\Query\Builder\QueryBuilder;
 use hiqdev\DataMapper\Query\Field\FieldFactoryInterface;
+use hiqdev\DataMapper\Query\Field\JoinedFieldInterface;
+use hiqdev\DataMapper\Query\Field\SQLFieldInterface;
 use hiqdev\DataMapper\Query\Join\Join;
 use hiqdev\DataMapper\Query\Join\LeftJoin;
 use yii\base\InvalidConfigException;
-use hiqdev\DataMapper\Query\Field\SQLFieldInterface;
-use hiqdev\DataMapper\Query\Field\JoinedFieldInterface;
 
 abstract class Query extends \yii\db\Query
 {
