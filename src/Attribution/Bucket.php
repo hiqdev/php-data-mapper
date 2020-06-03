@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\models\relations;
+namespace hiqdev\DataMapper\Attribution;
 
 use yii\helpers\ArrayHelper;
 

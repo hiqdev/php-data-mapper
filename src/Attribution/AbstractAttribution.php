@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\models;
+namespace hiqdev\DataMapper\Attribution;
 
-use hiqdev\DataMapper\Query\attributes\AbstractAttribute;
+use hiqdev\DataMapper\Attribute\AttributeInterface;
 use hiqdev\DataMapper\Schema\Relation;
 use yii\base\InvalidConfigException;
 
@@ -19,7 +19,7 @@ use yii\base\InvalidConfigException;
  *
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
-abstract class AbstractModel implements ModelInterface
+abstract class AbstractAttribution implements AttributionInterface
 {
     public function hasAttribute(string $name): bool
     {
@@ -54,7 +54,7 @@ abstract class AbstractModel implements ModelInterface
      * @param $name
      * @throws InvalidConfigException
      */
-    public function getAttribute(string $name): AbstractAttribute
+    public function getAttribute(string $name): AttributeInterface
     {
         if (!$this->hasAttribute($name)) {
             throw new InvalidConfigException('Attribute "' . $name . '" is not available within ' . static::class);

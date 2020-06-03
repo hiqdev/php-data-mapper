@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\Query;
+namespace hiqdev\DataMapper\Query\Field;
 
 /**
  * Class FilterField represents a field that can not be selected, but can

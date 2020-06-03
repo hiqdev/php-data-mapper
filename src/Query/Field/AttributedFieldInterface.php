@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\Query;
+namespace hiqdev\DataMapper\Query\Field;
 
-use hiqdev\DataMapper\Query\attributes\AttributeInterface;
+use hiqdev\DataMapper\Attribute\AttributeInterface;
 
 /**
  * Interface AttributedFieldInterface marks a field with the attribute

@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\Query;
+namespace hiqdev\DataMapper\Query\Join;
 
-use hiqdev\DataMapper\Query\join\Join;
+use hiqdev\DataMapper\Query\Join\Join;
 
 class LeftJoin extends Join
 {

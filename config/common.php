@@ -10,17 +10,17 @@
 
 $components = [
     'entityManager' => [
-        '__class' => \hiqdev\DataMapper\EntityManager::class,
+        '__class' => \hiqdev\DataMapper\Repository\EntityManager::class,
     ],
 ];
 
 $singletons = [
-    \hiqdev\DataMapper\Query\FieldFactoryInterface::class => \hiqdev\DataMapper\Query\FieldFactory::class,
+    \hiqdev\DataMapper\Query\Field\FieldFactoryInterface::class => \hiqdev\DataMapper\Query\Field\FieldFactory::class,
     \hiqdev\DataMapper\Repository\ConnectionInterface::class => function ($container) {
         return class_exists('Yii') ? \Yii::$app->get('db') : $container->get('db');
     },
-    \hiqdev\DataMapper\EntityManagerInterface::class => [
-        '__class' => \hiqdev\DataMapper\EntityManager::class,
+    \hiqdev\DataMapper\Repository\EntityManagerInterface::class => [
+        '__class' => \hiqdev\DataMapper\Repository\EntityManager::class,
         'repositories' => [
         ],
     ],
@@ -31,7 +31,7 @@ $singletons = [
             \DateTimeImmutable::class => \hiqdev\DataMapper\Hydrator\DateTimeImmutableHydrator::class,
          ],
     ],
-    \hiqdev\DataMapper\Attribute\Validator\Factory\AttributeValidatorFactoryInterface::class => \hiqdev\DataMapper\Attribute\Validator\AttributeValidatorFactory::class,
+    \hiqdev\DataMapper\Validator\AttributeValidatorFactoryInterface::class => \hiqdev\DataMapper\Validator\AttributeValidatorFactory::class,
     \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderInterface::class => \hiqdev\DataMapper\Query\Builder\QueryConditionBuilder::class,
     \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderFactoryInterface::class => \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderFactory::class,
 ];

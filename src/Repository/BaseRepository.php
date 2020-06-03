@@ -11,15 +11,15 @@
 namespace hiqdev\DataMapper\Repository;
 
 use hiqdev\yii\compat\yii;
-use hiqdev\DataMapper\components\ConnectionInterface;
-use hiqdev\DataMapper\components\EntityManagerInterface;
+use hiqdev\DataMapper\Repository\ConnectionInterface;
+use hiqdev\DataMapper\Repository\EntityManagerInterface;
 use hiqdev\DataMapper\Query\Query;
 use hiqdev\DataMapper\Query\Specification;
 use yii\base\InvalidConfigException;
 use yii\base\UnknownMethodException;
 use yii\db\Connection;
 
-abstract class BaseRepository extends \yii\base\Component implements GenericRepositoryInterface
+abstract class BaseRepository extends \yii\base\Component implements RepositoryInterface
 {
     /**
      * @var ConnectionInterface|Connection

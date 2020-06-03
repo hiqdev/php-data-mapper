@@ -10,10 +10,15 @@
 
 namespace hiqdev\DataMapper\Query;
 
-use hiqdev\DataMapper\models\AbstractModel;
-use hiqdev\DataMapper\models\ModelInterface;
-use hiqdev\DataMapper\Query\join\Join;
+use hiqdev\DataMapper\Attribution\AbstractAttribution;
+use hiqdev\DataMapper\Attribution\AttributionInterface;
+use hiqdev\DataMapper\Query\Builder\QueryBuilder;
+use hiqdev\DataMapper\Query\Field\FieldFactoryInterface;
+use hiqdev\DataMapper\Query\Join\Join;
+use hiqdev\DataMapper\Query\Join\LeftJoin;
 use yii\base\InvalidConfigException;
+use hiqdev\DataMapper\Query\Field\SQLFieldInterface;
+use hiqdev\DataMapper\Query\Field\JoinedFieldInterface;
 
 abstract class Query extends \yii\db\Query
 {
@@ -25,7 +30,7 @@ abstract class Query extends \yii\db\Query
     /**
      * @var string
      */
-    protected $modelClass;
+    protected $attributionClass;
 
     protected QueryBuilder $queryBuilder;
 
@@ -35,8 +40,8 @@ abstract class Query extends \yii\db\Query
         $this->queryBuilder = clone $queryBuilder;
         $this->queryBuilder->setQuery($this);
 
-        if (!isset($this->modelClass)) {
-            throw new InvalidConfigException('Property "modelClass" must be set');
+        if (!isset($this->attributionClass)) {
+            throw new InvalidConfigException('Property "attributionClass" must be set');
         }
     }
 
@@ -45,7 +50,7 @@ abstract class Query extends \yii\db\Query
      */
     public function getFields()
     {
-        return $this->fieldFactory->createByModelAttributes($this->getModel(), $this->attributesMap());
+        return $this->fieldFactory->createByAttribution($this->getAttribution(), $this->attributesMap());
     }
 
     /**
@@ -134,20 +139,20 @@ abstract class Query extends \yii\db\Query
     }
 
     /**
-     * @var ModelInterface|AbstractModel
+     * @var AttributionInterface|AbstractAttribution
      */
-    private $model;
+    private $attribution;
 
     /**
-     * @return ModelInterface|AbstractModel
+     * @return AttributionInterface|AbstractAttribution
      */
-    public function getModel(): ModelInterface
+    public function getAttribution(): AttributionInterface
     {
-        if ($this->model === null) {
-            $this->model = new $this->modelClass();
+        if ($this->attribution === null) {
+            $this->attribution = new $this->attributionClass();
         }
 
-        return $this->model;
+        return $this->attribution;
     }
 
     /**

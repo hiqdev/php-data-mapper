@@ -10,14 +10,14 @@
 
 namespace hiqdev\DataMapper\Query\Builder;
 
+use hiqdev\DataMapper\Attribute\AttributeInterface;
 use hiqdev\DataMapper\Query\AttributedFieldInterface;
-use hiqdev\DataMapper\Query\attributes\AttributeInterface;
-use hiqdev\DataMapper\Query\attributes\validators\AttributeValidationException;
-use hiqdev\DataMapper\Query\attributes\validators\AttributeValidator;
-use hiqdev\DataMapper\Query\attributes\validators\Factory\AttributeValidatorFactoryInterface;
-use hiqdev\DataMapper\Query\FieldConditionBuilderInterface;
-use hiqdev\DataMapper\Query\FieldInterface;
-use hiqdev\DataMapper\Query\SQLFieldInterface;
+use hiqdev\DataMapper\Query\Field\FieldConditionBuilderInterface;
+use hiqdev\DataMapper\Query\Field\FieldInterface;
+use hiqdev\DataMapper\Query\Field\SQLFieldInterface;
+use hiqdev\DataMapper\Validator\AttributeValidationException;
+use hiqdev\DataMapper\Validator\AttributeValidator;
+use hiqdev\DataMapper\Validator\AttributeValidatorFactoryInterface;
 
 final class QueryConditionBuilder implements QueryConditionBuilderInterface
 {

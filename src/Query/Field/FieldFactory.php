@@ -8,26 +8,26 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\Query;
+namespace hiqdev\DataMapper\Query\Field;
 
-use hiqdev\DataMapper\models\ModelInterface;
+use hiqdev\DataMapper\Attribution\AttributionInterface;
 
 class FieldFactory implements FieldFactoryInterface
 {
     /**
-     * @param ModelInterface $model
+     * @param AttributionInterface $model
      * @param $map
      * @param string[] parent attribute names
      * @return Field[]
      */
-    public function createByModelAttributes($model, $map, array $parents = [])
+    public function createByAttribution($model, $map, array $parents = [])
     {
         $result = [];
 
         foreach ($map as $attributeName => $definition) {
             if (is_array($definition)) {
                 $relationClass = $model->getRelation($attributeName);
-                $result = array_merge($result, $this->createByModelAttributes(
+                $result = array_merge($result, $this->createByAttribution(
                     new $relationClass(),
                     $definition,
                     array_merge($parents, [$attributeName])
@@ -46,7 +46,7 @@ class FieldFactory implements FieldFactoryInterface
     }
 
     /**
-     * @param ModelInterface $model
+     * @param AttributionInterface $model
      * @param string $attributeName
      * @param string $sql
      * @return Field

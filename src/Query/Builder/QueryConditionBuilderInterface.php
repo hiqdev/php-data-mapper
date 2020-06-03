@@ -10,8 +10,8 @@
 
 namespace hiqdev\DataMapper\Query\Builder;
 
-use hiqdev\DataMapper\Query\attributes\validators\AttributeValidationException;
-use hiqdev\DataMapper\Query\FieldInterface;
+use hiqdev\DataMapper\Validator\AttributeValidationException;
+use hiqdev\DataMapper\Query\Field\FieldInterface;
 
 /**
  * Interface QueryConditionBuilderInterface described a class

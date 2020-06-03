@@ -8,12 +8,11 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\models;
+namespace hiqdev\DataMapper\Attribution;
 
-use hiqdev\DataMapper\Query\attributes\AbstractAttribute;
-use hiqdev\DataMapper\Query\attributes\AttributeInterface;
+use hiqdev\DataMapper\Attribute\AttributeInterface;
 
-interface ModelInterface
+interface AttributionInterface
 {
     /**
      * @psalm-return array<string, class-string<self>>
@@ -36,7 +35,7 @@ interface ModelInterface
     /**
      * @psalm-return AttributeInterface
      */
-    public function getAttribute(string $name): AbstractAttribute;
+    public function getAttribute(string $name): AttributeInterface;
 
     public function hasAttribute(string $name): bool;
 }

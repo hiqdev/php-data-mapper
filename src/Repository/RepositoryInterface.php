@@ -13,12 +13,17 @@ namespace hiqdev\DataMapper\Repository;
 use hiqdev\DataMapper\Query\Specification;
 
 /**
- * Interface GenericRepositoryInterface.
+ * Interface RepositoryInterface.
  *
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
-interface GenericRepositoryInterface
+interface RepositoryInterface
 {
+    /**
+     * @return int
+     */
+    public function count(Specification $specification);
+
     /**
      * @return object[]
      */

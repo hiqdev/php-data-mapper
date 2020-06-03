@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\Query\attributes;
+namespace hiqdev\DataMapper\Attribute;
 
-class UnsupportedOperatorException extends \hiqdev\DataMapper\Query\attributes\validators\AttributeValidationException
+class UnsupportedOperatorException extends \hiqdev\DataMapper\Validator\AttributeValidationException
 {
     public static function forOperator($operator)
     {

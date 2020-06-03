@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\Query\attributes\validators\Factory;
+namespace hiqdev\DataMapper\Validator;
 
-use hiqdev\DataMapper\Query\attributes\validators\AttributeValidator;
+use hiqdev\DataMapper\Validator\AttributeValidator;
 
 interface AttributeValidatorFactoryInterface
 {

@@ -8,12 +8,12 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\Query\attributes\validators;
+namespace hiqdev\DataMapper\Validator;
 
 use hiapi\commands\SearchCommand;
-use hiqdev\DataMapper\components\EntityManagerInterface;
-use hiqdev\DataMapper\models\ModelInterface;
-use hiqdev\DataMapper\Query\attributes\AttributeInterface;
+use hiqdev\DataMapper\Attribution\AttributionInterface;
+use hiqdev\DataMapper\Attribute\AttributeInterface;
+use hiqdev\DataMapper\Repository\EntityManagerInterface;
 use yii\validators\Validator;
 
 class WhereValidator extends Validator
@@ -40,68 +40,68 @@ class WhereValidator extends Validator
     {
         $where = $model->$attribute;
 
-        $dataModel = $this->getDataModel();
-        $dynamicModel = $this->buildDynamicModel($dataModel);
-        $dynamicModel->load($where, '');
-        if (!$dynamicModel->validate()) {
-            $model->addErrors($dynamicModel->getErrors());
+        $attribution = $this->getAttribution();
+        $dynamicAttribution = $this->buildDynamicAttribution($attribution);
+        $dynamicAttribution->load($where, '');
+        if (!$dynamicAttribution->validate()) {
+            $model->addErrors($dynamicAttribution->getErrors());
 
             return false;
         }
         // TODO: put back to $model->$attribute only validated data
-        // $model->$attribute = $dynamicModel->toArray(); // except nulls
+        // $model->$attribute = $dynamicAttribution->toArray(); // except nulls
 
         return true;
     }
 
-    private function getDataModel(): ModelInterface
+    private function getAttribution(): AttributionInterface
     {
         return $this->em->getRepository($this->targetEntityClass)
             ->buildQuery()
-            ->getModel();
+            ->getAttribution();
     }
 
-    private function buildDynamicModel(ModelInterface $dataModel): DynamicValidationModel
+    private function buildDynamicAttribution(AttributionInterface $attribution): DynamicValidationModel
     {
-        return $this->unwrapAttributes($dataModel);
+        return $this->unwrapAttributes($attribution);
     }
 
-    private function unwrapAttributes(ModelInterface $dataModel, array $parents = []): ?DynamicValidationModel
+    private function unwrapAttributes(AttributionInterface $attribution, array $parents = []): ?DynamicValidationModel
     {
         if ($this->circularReferenceDetected($parents)) {
             return null;
         }
 
-        $dynamicModel = new DynamicValidationModel();
-        foreach ($dataModel->attributes() as $baseAttributeName => $attributeClassName) {
+        $dynamicAttribution = new DynamicValidationModel();
+        foreach ($attribution->attributes() as $baseAttributeName => $attributeClassName) {
             /** @var AttributeInterface $attribute */
             $attribute = new $attributeClassName();
             foreach ($attribute->getSupportedOperators() as $operator) {
                 $attributeName = $baseAttributeName . ($operator === '' ? '' : "_$operator");
-                $dynamicModel->defineAttribute($attributeName);
+                $dynamicAttribution->defineAttribute($attributeName);
 
                 $rule = $attribute->getRuleForOperator($operator);
                 $validatorName = array_shift($rule);
-                $dynamicModel->addRule($attributeName, $validatorName, $rule);
+                $dynamicAttribution->addRule($attributeName, $validatorName, $rule);
             }
         }
 
-        foreach ($dataModel->relations() as $relationName => $relationClassName) {
+        foreach ($attribution->relations() as $relationName => $relationClassName) {
             $parents[] = [$relationName, $relationClassName];
             $relation = $this->unwrapAttributes(new $relationClassName(), $parents);
             if ($relation === null) {
                 continue;
             }
-            $dynamicModel->defineAttribute($relationName, $relation);
+            $dynamicAttribution->defineAttribute($relationName, $relation);
         }
 
-        return $dynamicModel;
+        return $dynamicAttribution;
     }
 
     private int $relationNestingLimit = 3;
 
     /**
-     * @psalm-param list<array{0: string, 1: class-name<ModelInterface>}> $parents
+     * @psalm-param list<array{0: string, 1: class-name<AttributionInterface>}> $parents
      */
     private function circularReferenceDetected(array $parents): bool
     {

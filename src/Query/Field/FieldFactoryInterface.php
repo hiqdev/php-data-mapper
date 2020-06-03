@@ -8,16 +8,16 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\Query;
+namespace hiqdev\DataMapper\Query\Field;
 
 interface FieldFactoryInterface
 {
     /**
-     * @param $model
+     * @param $attribution
      * @param $map
      * @return Field[]
      */
-    public function createByModelAttributes($model, $map);
+    public function createByAttribution($attribution, $map);
 
     /**
      * @return string

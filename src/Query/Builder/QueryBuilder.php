@@ -10,9 +10,11 @@ declare(strict_types=1);
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\Query;
+namespace hiqdev\DataMapper\Query\Builder;
 
 use hiqdev\DataMapper\Query\Builder\QueryConditionBuilderInterface;
+use hiqdev\DataMapper\Query\Query;
+use hiqdev\DataMapper\Query\Specification;
 use yii\helpers\ArrayHelper;
 
 /**

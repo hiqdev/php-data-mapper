@@ -8,10 +8,10 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\Query;
+namespace hiqdev\DataMapper\Query\Field;
 
-use hiqdev\DataMapper\Query\attributes\AbstractAttribute;
-use hiqdev\DataMapper\Query\attributes\AttributeInterface;
+use hiqdev\DataMapper\Attribute\AbstractAttribute;
+use hiqdev\DataMapper\Attribute\AttributeInterface;
 use yii\db\ExpressionInterface;
 
 class Field implements FieldInterface, SQLFieldInterface, AttributedFieldInterface

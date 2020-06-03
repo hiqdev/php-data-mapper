@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\DataMapper\Query\attributes;
+namespace hiqdev\DataMapper\Attribute;
 
-use hiqdev\DataMapper\Query\attributes\validators\DateTimeValidator;
+use hiqdev\DataMapper\Validator\DateTimeValidator;
 
 class DateTimeAttribute extends AbstractAttribute
 {
