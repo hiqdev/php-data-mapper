@@ -11,7 +11,7 @@
 namespace hiqdev\DataMapper\Query\Builder;
 
 use hiqdev\DataMapper\Attribute\AttributeInterface;
-use hiqdev\DataMapper\Query\AttributedFieldInterface;
+use hiqdev\DataMapper\Query\Field\AttributedFieldInterface;
 use hiqdev\DataMapper\Query\Field\FieldConditionBuilderInterface;
 use hiqdev\DataMapper\Query\Field\FieldInterface;
 use hiqdev\DataMapper\Query\Field\SQLFieldInterface;
