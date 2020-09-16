@@ -134,7 +134,7 @@ abstract class BaseRepository extends \yii\base\Component implements RepositoryI
     }
 
     /**
-     * @param Specification
+     * @param Specification $specification TODO use type hint
      * @return object|false
      */
     public function findOne($specification)
