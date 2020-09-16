@@ -44,14 +44,32 @@ class ConfigurableHydrator implements HydratorInterface
      */
     protected function getHydrator($className)
     {
-        if (!isset($this->hydrators[$className])) {
+        $hydrator = $this->findHydrator($className);
+        if ($hydrator === null) {
             throw new NotConfiguredException('Hydrator for "' . $className . '" is not configured');
+        }
+        if (empty($this->hydrators[$className])) {
+            $this->hydrators[$className] = $hydrator;
         }
         if (!is_object($this->hydrators[$className])) {
             $this->hydrators[$className] = $this->di->get($this->hydrators[$className]);
         }
 
         return $this->hydrators[$className];
+    }
+
+    private function findHydrator(string $className)
+    {
+        if (isset($this->hydrators[$className])) {
+            return $this->hydrators[$className];
+        }
+        foreach ($this->hydrators as $entityClass => $hydrator) {
+            if (is_a($className, $entityClass, true)) {
+                return $hydrator;
+            }
+        }
+
+        return null;
     }
 
     /**
