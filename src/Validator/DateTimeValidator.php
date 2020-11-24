@@ -22,4 +22,11 @@ class DateTimeValidator extends DateValidator implements NormalizerInterface
     {
         return date('Y-m-d H:i:s', strtotime($value));
     }
+
+    protected function parseDateValue($value)
+    {
+        $datetime = parent::parseDateValue($value);
+
+        return $datetime ?: strtotime($value);
+    }
 }
