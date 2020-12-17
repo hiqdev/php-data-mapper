@@ -36,9 +36,28 @@ trait GeneratedHydratorTrait
         return $this->generatedHydrators[$class];
     }
 
+    /**
+     * @param array|object $data
+     * @param string|object $object
+     * @return object
+     */
+    public function hydrateChild($data, $object)
+    {
+        return is_object($data) ? $data : $this->hydrator->hydrate(is_array($data) ? $data : (array)$data, $object);
+    }
+
     public function hydrate(array $data, $object)
     {
         return $this->getGeneratedHydrator($object)->hydrate($data, $object);
+    }
+
+    /**
+     * @param ?object $object
+     * @return ?array
+     */
+    public function extractChild($object)
+    {
+        return $object ? $this->hydrator->extract($object) : null;
     }
 
     /**
