@@ -10,17 +10,19 @@
 
 namespace hiqdev\DataMapper\Attribute;
 
+use hiqdev\DataMapper\Validator\IntegerValidator;
+
 class IntegerAttribute extends AbstractAttribute
 {
     public function getOperatorRules()
     {
         return [
-            'eq' => ['number', 'integerOnly' => true],
-            'ne' => ['number', 'integerOnly' => true],
-            'gt' => ['number', 'integerOnly' => true],
-            'lt' => ['number', 'integerOnly' => true],
-            'in' => ['each', 'rule' => ['number', 'integerOnly' => true]],
-            'ni' => ['each', 'rule' => ['number', 'integerOnly' => true]],
+            'eq' => [IntegerValidator::class],
+            'ne' => [IntegerValidator::class],
+            'gt' => [IntegerValidator::class],
+            'lt' => [IntegerValidator::class],
+            'in' => ['each', 'rule' => [IntegerValidator::class]],
+            'ni' => ['each', 'rule' => [IntegerValidator::class]],
         ];
     }
 }
