@@ -32,6 +32,13 @@ interface QueryConditionBuilderInterface
 
     /**
      * Checks, whether the $field is responsible for $attribute filter.
+     *
+     * @param FieldInterface $field
+     * @param string $attribute
+     * @param mixed $value
+     * @return bool|null True/False – when $field is responsible for $attribute filter
+     *                   Null – when QueryConditionBuilder can not decide on it and needs
+     *                          to delegate it.
      */
-    public function canApply(FieldInterface $field, string $attribute): bool;
+    public function canApply(FieldInterface $field, string $attribute, $value): ?bool;
 }
