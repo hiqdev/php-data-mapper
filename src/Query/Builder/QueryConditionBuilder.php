@@ -68,8 +68,18 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
         throw new \BadMethodCallException(sprintf('The passed field %s can not be built', $field->getName()));
     }
 
-    public function canApply(FieldInterface $field, string $key): bool
+    public function canApply(FieldInterface $field, string $key, $value): bool
     {
+        if (isset($this->builderMap[get_class($field)])) {
+            $builderClassName = $this->builderMap[get_class($field)];
+            $builder = $this->conditionBuilderFactory->build($builderClassName);
+
+            $canApply = $builder->canApply($field, $key, $value);
+            if ($canApply !== null) {
+                return $canApply;
+            }
+        }
+
         [, $attribute] = $this->parseFieldFilterKey($field, $key);
 
         return $attribute === $field->getName();
