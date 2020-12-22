@@ -21,6 +21,7 @@ use hiqdev\DataMapper\Query\Field\SQLFieldInterface;
 use hiqdev\DataMapper\Query\Join\Join;
 use hiqdev\DataMapper\Query\Join\LeftJoin;
 use RuntimeException;
+use yii\db\Expression;
 
 abstract class Query extends \yii\db\Query
 {
@@ -66,12 +67,7 @@ abstract class Query extends \yii\db\Query
                 continue;
             }
 
-            $statement = $field->getSql();
-            if (is_object($statement)) {
-                $this->addSelect($statement);
-            } else {
-                $this->addSelect($statement . ' as ' . $field->getName());
-            }
+            $this->addSelect(new Expression($field->getSql() . ' AS "' . $field->getName() . '"'));
 
             if ($field instanceof JoinedFieldInterface) { // TODO: Join only if selected or filtered
                 $this->registerJoin($field->getJoinName());
