@@ -22,5 +22,5 @@ interface FieldFactoryInterface
     /**
      * @return string
      */
-    public function getHierarchySeparator();
+    public function getHierarchySeparator(): string;
 }

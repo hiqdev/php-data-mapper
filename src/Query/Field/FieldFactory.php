@@ -59,7 +59,7 @@ class FieldFactory implements FieldFactoryInterface
         return new Field($name, $sql, $model->getAttribute($attributeName));
     }
 
-    public function getHierarchySeparator()
+    public function getHierarchySeparator(): string
     {
         return '-';
     }

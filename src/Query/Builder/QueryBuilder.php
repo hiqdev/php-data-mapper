@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace hiqdev\DataMapper\Query\Builder;
 
+use hiqdev\DataMapper\Query\Field\JoinedFieldInterface;
 use hiqdev\DataMapper\Query\Query;
 use hiqdev\DataMapper\Query\Specification;
 use yii\helpers\ArrayHelper;
@@ -76,6 +77,10 @@ final class QueryBuilder
                 if ($this->queryConditionBuilder->canApply($field, (string) $key, $value)) {
                     $where = $this->queryConditionBuilder->build($field, (string) $key, $value);
                     $this->query->andWhere($where);
+
+                    if ($field instanceof JoinedFieldInterface) {
+                        $this->query->registerJoin($field->getJoinName());
+                    }
                 }
             }
         }
