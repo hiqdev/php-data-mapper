@@ -45,10 +45,10 @@ class EntityManager implements EntityManagerInterface
 
     public function getEntityClass($repo)
     {
-        $repoClass = is_object($repo) ? get_class($repo) : $repo;
+        $class = is_object($repo) ? get_class($repo) : $repo;
         $entities = $this->getEntities();
-        if (!empty($entities[$repoClass])) {
-            return $entities[$repoClass];
+        if (!empty($entities[$class])) {
+            return $entities[$class];
         }
 
         foreach ($entities as $repoClass => $entityClass) {
@@ -57,7 +57,7 @@ class EntityManager implements EntityManagerInterface
             }
         }
 
-        throw new \Exception('no entity class for ' . $repoClass);
+        throw new \Exception('no entity class for ' . $class);
     }
 
     protected function getEntities()
