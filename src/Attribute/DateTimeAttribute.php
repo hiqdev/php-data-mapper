@@ -18,6 +18,8 @@ class DateTimeAttribute extends AbstractAttribute
     {
         return [
             'eq' => [DateTimeValidator::class],
+            'in' => ['each', 'rule' => [DateTimeValidator::class]],
+            'ni' => ['each', 'rule' => [DateTimeValidator::class]],
         ];
     }
 }
