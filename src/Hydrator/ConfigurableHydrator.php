@@ -10,7 +10,7 @@
 
 namespace hiqdev\DataMapper\Hydrator;
 
-use yii\di\Container;
+use Psr\Container\ContainerInterface;
 use Zend\Hydrator\ExtractionInterface;
 use Zend\Hydrator\HydrationInterface;
 use Zend\Hydrator\HydratorInterface;
@@ -27,11 +27,11 @@ class ConfigurableHydrator implements HydratorInterface
      */
     public $hydrators = []; // TODO: make private after composer-config-plugin merging fix
     /**
-     * @var Container
+     * @var ContainerInterface
      */
     private $di;
 
-    public function __construct(Container $di, array $hydrators = [])
+    public function __construct(ContainerInterface $di, array $hydrators = [])
     {
         $this->di = $di;
         $this->hydrators = $hydrators;

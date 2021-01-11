@@ -44,7 +44,8 @@
         }
     ],
     "require": {
-        "ocramius/generated-hydrator": "^3.0.0"
+        "ocramius/generated-hydrator": "^3.0.0",
+        "psr/container": "^1.0"
     },
     "require-dev": {
         "hiqdev/hidev": "dev-master",
