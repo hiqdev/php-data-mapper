@@ -50,6 +50,13 @@ class AttributeValidator implements \hiqdev\DataMapper\Validator\NormalizerInter
 
     public function normalize($value)
     {
+        if ($value === null) {
+            return null;
+        }
+        if ($value instanceof \yii\db\ExpressionInterface) {
+            return $value;
+        }
+        
         if ($this->realValidator instanceof \hiqdev\DataMapper\Validator\NormalizerInterface) {
             $value = $this->realValidator->normalize($value);
         }
