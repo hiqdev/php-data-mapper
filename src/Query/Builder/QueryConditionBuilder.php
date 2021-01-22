@@ -26,11 +26,11 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
 
     private array $builderMap;
 
-    public function __construct(array $builderMap, QueryConditionBuilderFactoryInterface $conditionBuilderFactory, AttributeValidatorFactoryInterface $attributeValidatorFactory)
+    public function __construct($builderMap, QueryConditionBuilderFactoryInterface $conditionBuilderFactory, AttributeValidatorFactoryInterface $attributeValidatorFactory)
     {
         $this->attributeValidatorFactory = $attributeValidatorFactory;
         $this->conditionBuilderFactory = $conditionBuilderFactory;
-        $this->builderMap = $builderMap;
+        $this->builderMap = $builderMap ?? [];
     }
 
     /** {@inheritdoc} */
