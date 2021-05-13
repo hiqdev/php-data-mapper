@@ -28,6 +28,7 @@ trait GeneratedHydratorTrait
         $class = get_class($object);
         if (empty($this->generatedHydrators[$class])) {
             $config = new Configuration($class);
+            spl_autoload_register($config->getGeneratedClassAutoloader());
             $hydratorClass = $config->createFactory()->getHydratorClass();
 
             $this->generatedHydrators[$class] = new $hydratorClass();
