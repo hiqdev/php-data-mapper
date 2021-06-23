@@ -56,6 +56,10 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
             $operatorMap = [
                 'eq' => '=',
                 'ne' => '!=',
+                'gt' => '>',
+                'lt' => '<',
+                'gte' => '>=',
+                'lte' => '<=',
             ];
 
             return [

@@ -20,6 +20,10 @@ class DateTimeAttribute extends AbstractAttribute
             'eq' => [DateTimeValidator::class],
             'in' => ['each', 'rule' => [DateTimeValidator::class]],
             'ni' => ['each', 'rule' => [DateTimeValidator::class]],
+            'gt' => [DateTimeValidator::class],
+            'lt' => [DateTimeValidator::class],
+            'gte' => [DateTimeValidator::class],
+            'lte' => [DateTimeValidator::class],
         ];
     }
 }
