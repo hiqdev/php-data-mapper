@@ -36,6 +36,6 @@ $singletons = [
     \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderFactoryInterface::class => \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderFactory::class,
 ];
 
-return class_exists(Yiisoft\Factory\Definitions\Reference::class)
+return class_exists(\Yiisoft\Factory\Definition\Reference::class)
     ? array_merge($components, $singletons)
     : ['components' => $components, 'container' => ['singletons' => $singletons]];
