@@ -24,9 +24,11 @@ interface QueryConditionBuilderInterface
     /**
      * Builds a condition in one of the Yii-compatible `where` formats.
      *
-     * @param $value
-     * @throws AttributeValidationException in the attribute value does not pass the field type validation
+     * @param FieldInterface $field
+     * @param string $attribute The attribute name in the WHERE condition
+     * @param mixed $value The value, being filtered
      * @return mixed
+     * @throws AttributeValidationException in the attribute value does not pass the field type validation
      */
     public function build(FieldInterface $field, string $attribute, $value);
 
