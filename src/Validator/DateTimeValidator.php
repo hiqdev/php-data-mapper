@@ -10,6 +10,8 @@
 
 namespace hiqdev\DataMapper\Validator;
 
+use DateTime;
+use DateTimeZone;
 use yii\validators\DateValidator;
 
 class DateTimeValidator extends DateValidator implements NormalizerInterface
@@ -25,8 +27,27 @@ class DateTimeValidator extends DateValidator implements NormalizerInterface
 
     protected function parseDateValue($value)
     {
-        $datetime = parent::parseDateValue($value);
+        if (strpos($value, 'T', true) !== false) {
+            $datetime = $this->parseExtendedDateValue($value);
+        } else {
+            $datetime = parent::parseDateValue($value);
+        }
 
         return $datetime ?: strtotime($value);
+    }
+
+    /**
+     * @return bool|int
+     */
+    private function parseExtendedDateValue(string $value)
+    {
+        $value = str_replace(" ", "+", $value);
+        $date = DateTime::createFromFormat("Y-m-d\TH:i:sT", $value, new DateTimeZone($this->timeZone));
+        $errors = DateTime::getLastErrors();
+        if ($date === false || $errors['error_count'] || $errors['warning_count']) {
+            return false;
+        }
+
+        return $date->getTimestamp();
     }
 }
