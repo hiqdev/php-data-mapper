@@ -12,6 +12,7 @@ namespace hiqdev\DataMapper\Query\Builder;
 
 use hiqdev\DataMapper\Attribute\AttributeInterface;
 use hiqdev\DataMapper\Query\Field\AttributedFieldInterface;
+use hiqdev\DataMapper\Query\Field\BuilderAwareFieldInterface;
 use hiqdev\DataMapper\Query\Field\FieldConditionBuilderInterface;
 use hiqdev\DataMapper\Query\Field\FieldInterface;
 use hiqdev\DataMapper\Query\Field\SQLFieldInterface;
@@ -23,14 +24,20 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
 {
     private AttributeValidatorFactoryInterface $attributeValidatorFactory;
     private QueryConditionBuilderFactoryInterface $conditionBuilderFactory;
+    private AttributeParserInterface $attributeParser;
 
     private array $builderMap;
 
-    public function __construct($builderMap, QueryConditionBuilderFactoryInterface $conditionBuilderFactory, AttributeValidatorFactoryInterface $attributeValidatorFactory)
-    {
+    public function __construct(
+        $builderMap,
+        QueryConditionBuilderFactoryInterface $conditionBuilderFactory,
+        AttributeValidatorFactoryInterface $attributeValidatorFactory,
+        AttributeParserInterface $attributeParser
+    ) {
         $this->attributeValidatorFactory = $attributeValidatorFactory;
         $this->conditionBuilderFactory = $conditionBuilderFactory;
         $this->builderMap = $builderMap ?? [];
+        $this->attributeParser = $attributeParser;
     }
 
     /** {@inheritdoc} */
@@ -43,9 +50,15 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
             return $builder->build($field, $key, $value);
         }
 
-        [$operator, $attribute] = $this->parseFieldFilterKey($field, $key);
+        [$operator, $attribute] = $this->attributeParser->__invoke($field, $key);
         if ($field instanceof FieldConditionBuilderInterface) {
             return $field->buildCondition($operator, $attribute, $value);
+        }
+
+        if ($field instanceof BuilderAwareFieldInterface && $field->getBuilderClass() !== null) {
+            return $this->conditionBuilderFactory
+                ->build($field->getBuilderClass())
+                ->build($field, $key, $value);
         }
 
         if ($field instanceof SQLFieldInterface) {
@@ -84,7 +97,13 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
             }
         }
 
-        [, $attribute] = $this->parseFieldFilterKey($field, $key);
+        if ($field instanceof BuilderAwareFieldInterface && $field->getBuilderClass() !== null) {
+            return $this->conditionBuilderFactory
+                ->build($field->getBuilderClass())
+                ->canApply($field, $key, $value);
+        }
+
+        [, $attribute] = $this->attributeParser->__invoke($field, $key);
 
         return $attribute === $field->getName();
     }
@@ -105,39 +124,6 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
         $validator->ensureIsValid($value);
 
         return $value;
-    }
-
-    /**
-     * @param string $key the search key for operator and attribute name extraction
-     * @return array an array of two items: the comparison operator and the attribute name
-     * @psalm-return array{0: string, 1: string} an array of two items: the comparison operator and the attribute name
-     */
-    private function parseFieldFilterKey(FieldInterface $field, string $key)
-    {
-        if (!$field instanceof AttributedFieldInterface
-            || $field->getName() === $key
-        ) {
-            return ['eq', $key];
-        }
-
-        /*
-         * Extracts underscore suffix from the key.
-         *
-         * Examples:
-         * client_id -> 0 - client_id, 1 - client, 2 - _id, 3 - id
-         * server_owner_like -> 0 - server_owner_like, 1 - server_owner, 2 - _like, 3 - like
-         */
-        preg_match('/^(.*?)(_((?:.(?!_))+))?$/', $key, $matches);
-
-        $operator = 'eq';
-
-        // If the suffix is in the list of acceptable suffix filer conditions
-        if (isset($matches[3]) && in_array($matches[3], $field->getAttribute()->getSupportedOperators(), true)) {
-            $operator = $matches[3];
-            $key = $matches[1];
-        }
-
-        return [$operator, $key];
     }
 
     private function getAttributeOperatorValidator(AttributeInterface $attribute, string $operator): AttributeValidator

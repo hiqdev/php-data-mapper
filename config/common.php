@@ -34,6 +34,7 @@ $singletons = [
     \hiqdev\DataMapper\Validator\AttributeValidatorFactoryInterface::class => \hiqdev\DataMapper\Validator\AttributeValidatorFactory::class,
     \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderInterface::class => \hiqdev\DataMapper\Query\Builder\QueryConditionBuilder::class,
     \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderFactoryInterface::class => \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderFactory::class,
+    \hiqdev\DataMapper\Query\Builder\AttributeParserInterface::class => \hiqdev\DataMapper\Query\Builder\AttributeParser::class,
 ];
 
 return class_exists(\Yiisoft\Factory\Definition\Reference::class)
