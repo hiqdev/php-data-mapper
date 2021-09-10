@@ -31,7 +31,7 @@ abstract class Query extends \yii\db\Query
     protected $fieldFactory;
 
     /**
-     * @var string
+     * @var class-string<AttributionInterface>
      */
     protected $attributionClass;
 

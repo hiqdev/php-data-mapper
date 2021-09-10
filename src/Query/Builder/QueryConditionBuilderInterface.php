@@ -25,7 +25,7 @@ interface QueryConditionBuilderInterface
      * Builds a condition in one of the Yii-compatible `where` formats.
      *
      * @param FieldInterface $field
-     * @param string $attribute The attribute name in the WHERE condition
+     * @param string $attribute The attribute name in the WHERE condition // TODO: rename to $operator
      * @param mixed $value The value, being filtered
      * @return mixed
      * @throws AttributeValidationException in the attribute value does not pass the field type validation

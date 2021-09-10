@@ -28,7 +28,7 @@ abstract class BaseRepository extends \yii\base\Component implements RepositoryI
     protected $em;
 
     /**
-     * @var string
+     * @var class-string<Query>
      */
     public $queryClass;
 

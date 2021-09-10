@@ -12,9 +12,10 @@ namespace hiqdev\DataMapper\Query\Field;
 
 use hiqdev\DataMapper\Attribute\AbstractAttribute;
 use hiqdev\DataMapper\Attribute\AttributeInterface;
+use hiqdev\DataMapper\Query\Builder\QueryConditionBuilderInterface;
 use yii\db\ExpressionInterface;
 
-class Field implements FieldInterface, SQLFieldInterface, AttributedFieldInterface
+class Field implements FieldInterface, SQLFieldInterface, AttributedFieldInterface, BuilderAwareFieldInterface
 {
     /**
      * @var string field (attribute) name
@@ -30,6 +31,11 @@ class Field implements FieldInterface, SQLFieldInterface, AttributedFieldInterfa
      * @var AbstractAttribute
      */
     protected $attribute;
+
+    /**
+     * @var class-string<QueryConditionBuilderInterface>|null
+     */
+    protected $builderClass;
 
     /**
      * Field constructor.
@@ -65,5 +71,18 @@ class Field implements FieldInterface, SQLFieldInterface, AttributedFieldInterfa
     public function getAttribute(): AttributeInterface
     {
         return $this->attribute;
+    }
+
+    public function buildWith(string $className)
+    {
+        $self = clone $this;
+        $self->builderClass = $className;
+
+        return $self;
+    }
+
+    public function getBuilderClass(): ?string
+    {
+        return $this->builderClass;
     }
 }
