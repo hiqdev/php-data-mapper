@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace hiqdev\DataMapper\Query\Builder;
 
 use hiqdev\DataMapper\Query\Field\FieldInterface;
+use hiqdev\DataMapper\Query\Field\SQLFieldInterface;
+use InvalidArgumentException;
 use JsonException;
 use yii\db\Expression;
 use yii\db\JsonExpression;
@@ -17,8 +19,12 @@ class JsonConditionBuilder implements QueryConditionBuilderInterface
         $this->attributeParser = $attributeParser;
     }
 
-    private function jsonDecode($value): ?array
+    private function jsonDecode(?string $value): ?array
     {
+        if ($value === null) {
+            return null;
+        }
+
         try {
             return json_decode($value, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
@@ -28,6 +34,10 @@ class JsonConditionBuilder implements QueryConditionBuilderInterface
 
     public function build(FieldInterface $field, string $attribute, $value)
     {
+        if (!$field instanceof SQLFieldInterface) {
+            throw new InvalidArgumentException('JsonConditionBuilder supports only SQLFieldInterface fields');
+        }
+
         // TODO: drop after QueryConditionBuilderInterface get changed
         [$operator, $key] = $this->attributeParser->__invoke($field, $attribute);
 
@@ -44,6 +54,10 @@ class JsonConditionBuilder implements QueryConditionBuilderInterface
 
     public function canApply(FieldInterface $field, string $attribute, $value): ?bool
     {
-        return $this->jsonDecode($value) !== null;
+        if (!$field instanceof SQLFieldInterface) {
+            return false;
+        }
+
+        return $value !== null && $this->jsonDecode($value) !== null;
     }
 }
