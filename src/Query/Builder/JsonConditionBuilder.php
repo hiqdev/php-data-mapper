@@ -54,10 +54,12 @@ class JsonConditionBuilder implements QueryConditionBuilderInterface
 
     public function canApply(FieldInterface $field, string $attribute, $value): ?bool
     {
-        if (!$field instanceof SQLFieldInterface) {
+        [, $attribute] = $this->attributeParser->__invoke($field, $attribute);
+
+        if ($attribute !== $field->getName()) {
             return false;
         }
 
-        return $value !== null && $this->jsonDecode($value) !== null;
+        return $field instanceof SQLFieldInterface && $value !== null && $this->jsonDecode($value) !== null;
     }
 }
