@@ -24,7 +24,7 @@ class DateTimeImmutableHydrator extends GeneratedHydrator
      * {@inheritdoc}
      * @param object|DateTimeImmutable $object
      */
-    public function hydrate(array $data, $object)
+    public function hydrate(array $data, $object): object
     {
         return new DateTimeImmutable(reset($data));
     }
@@ -33,8 +33,8 @@ class DateTimeImmutableHydrator extends GeneratedHydrator
      * {@inheritdoc}
      * @param object|DateTimeImmutable $object
      */
-    public function extract($object)
+    public function extract($object): array
     {
-        return $object->format(DateTime::ATOM);
+        return [$object->format(DateTime::ATOM)];
     }
 }

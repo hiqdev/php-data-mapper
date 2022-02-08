@@ -108,7 +108,7 @@ class ConfigurableHydrator implements HydratorInterface
      * @param  object $object
      * @return array
      */
-    public function extract($object)
+    public function extract($object): array
     {
         return $this->getHydrator(get_class($object))->extract($object);
     }
