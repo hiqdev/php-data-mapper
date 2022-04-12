@@ -10,26 +10,25 @@
 
 namespace hiqdev\DataMapper\Hydrator;
 
+use Laminas\Hydrator\ExtractionInterface;
+use Laminas\Hydrator\HydrationInterface;
+use Laminas\Hydrator\HydratorAwareInterface;
+use Laminas\Hydrator\HydratorInterface;
 use Psr\Container\ContainerInterface;
-use Zend\Hydrator\ExtractionInterface;
-use Zend\Hydrator\HydrationInterface;
-use Zend\Hydrator\HydratorInterface;
 
 /**
- * Class ConfigurableHydrator.
+ * Class ConfigurableHydrator is similar to Laminas DelegatingHydrator,
+ * but stores a map of class and hydrator internally instead of using
+ * DI for it.
  *
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
 class ConfigurableHydrator implements HydratorInterface
 {
     /**
-     * @var HydrationInterface[]
+     * @var array<class-string<object>, class-string<HydratorInterface>|HydratorInterface>
      */
-    public $hydrators = []; // TODO: make private after composer-config-plugin merging fix
-    /**
-     * @var ContainerInterface
-     */
-    private $di;
+    public array $hydrators = []; // TODO: make private after composer-config-plugin merging fix
 
     public function __construct(ContainerInterface $di, array $hydrators = [])
     {
@@ -53,11 +52,18 @@ class ConfigurableHydrator implements HydratorInterface
         }
         if (!is_object($this->hydrators[$className])) {
             $this->hydrators[$className] = $this->di->get($this->hydrators[$className]);
+            if ($this->hydrators[$className] instanceof HydratorAwareInterface) {
+                $this->hydrators[$className]->setHydrator($this);
+            }
         }
 
         return $this->hydrators[$className];
     }
 
+    /**
+     * @param class-string<object> $className
+     * @return class-string<HydratorInterface>|HydrationInterface|null
+     */
     private function findHydrator(string $className)
     {
         if (isset($this->hydrators[$className])) {
@@ -76,27 +82,31 @@ class ConfigurableHydrator implements HydratorInterface
      * Create new object of given class with the provided $data.
      * When given $data is object just returns it.
      * @param  object|array $data
-     * @param  string $class class name
+     * @param  class-string $class class name
      * @return object
      */
     public function create($data, $class)
     {
-        return is_object($data) ? $data : $this->hydrate(is_array($data) ? $data : [$data], $class);
+        if (is_object($data)) {
+            return $data;
+        }
+
+        return $this->hydrate(
+            is_array($data) ? $data : [$data],
+            $class
+        );
     }
 
-    /**
-     * Hydrate $object with the provided $data.
-     *
-     * @param  object|string $object object or class name
-     * @return object
-     */
+    /** {@inheritdoc} */
     public function hydrate(array $data, $object)
     {
         if (is_object($object)) {
             $hydrator = $this->getHydrator(get_class($object));
         } else {
             $hydrator = $this->getHydrator($object);
-            $object = $hydrator->createEmptyInstance($object, $data);
+            if ($hydrator instanceof ObjectFactoryInterface) {
+                $object = $hydrator->createEmptyInstance($object, $data);
+            }
         }
 
         return $hydrator->hydrate($data, $object);
