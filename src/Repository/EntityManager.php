@@ -11,7 +11,7 @@
 namespace hiqdev\DataMapper\Repository;
 
 use yii\di\Container;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\HydratorInterface;
 
 class EntityManager implements EntityManagerInterface
 {

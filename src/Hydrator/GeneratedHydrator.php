@@ -10,10 +10,13 @@
 
 namespace hiqdev\DataMapper\Hydrator;
 
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\AbstractHydrator;
+use Laminas\Hydrator\HydratorAwareInterface;
+use Laminas\Hydrator\HydratorAwareTrait;
 
-abstract class GeneratedHydrator implements HydratorInterface
+abstract class GeneratedHydrator extends AbstractHydrator implements ObjectFactoryInterface, HydratorAwareInterface
 {
-    use RootHydratorAwareTrait;
     use GeneratedHydratorTrait;
+    use ObjectFactoryTrait;
+    use HydratorAwareTrait;
 }

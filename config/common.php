@@ -24,13 +24,14 @@ $singletons = [
         'repositories' => [
         ],
     ],
+
     \Zend\Hydrator\HydratorInterface::class => \hiqdev\DataMapper\Hydrator\ConfigurableHydrator::class,
     \Laminas\Hydrator\HydratorInterface::class => \hiqdev\DataMapper\Hydrator\ConfigurableHydrator::class,
     \hiqdev\DataMapper\Hydrator\ConfigurableHydrator::class => [
         'hydrators' => [
-            \DateTimeImmutable::class => \hiqdev\DataMapper\Hydrator\DateTimeImmutableHydrator::class,
          ],
     ],
+
     \hiqdev\DataMapper\Validator\AttributeValidatorFactoryInterface::class => \hiqdev\DataMapper\Validator\AttributeValidatorFactory::class,
     \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderInterface::class => \hiqdev\DataMapper\Query\Builder\QueryConditionBuilder::class,
     \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderFactoryInterface::class => \hiqdev\DataMapper\Query\Builder\QueryConditionBuilderFactory::class,
