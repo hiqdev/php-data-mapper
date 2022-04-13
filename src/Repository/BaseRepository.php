@@ -13,29 +13,18 @@ namespace hiqdev\DataMapper\Repository;
 use hiqdev\DataMapper\Query\Query;
 use hiqdev\DataMapper\Query\Specification;
 use hiqdev\yii\compat\yii;
-use yii\db\Connection;
+use yii\base\Component;
 
-abstract class BaseRepository extends \yii\base\Component implements RepositoryInterface
+abstract class BaseRepository extends Component implements RepositoryInterface
 {
-    /**
-     * @var ConnectionInterface|Connection
-     */
-    protected $db;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $em;
-
     /**
      * @var class-string<Query>
      */
     public $queryClass;
 
-    public function __construct(ConnectionInterface $db, EntityManagerInterface $em)
+    public function __construct(protected ConnectionInterface $db, protected EntityManagerInterface $em, array $config = [])
     {
-        $this->db = $db;
-        $this->em = $em;
+        parent::__construct($config);
     }
 
     public function findByUniqueness(array $entities): array
@@ -116,10 +105,7 @@ abstract class BaseRepository extends \yii\base\Component implements RepositoryI
 
     public function count(Specification $specification)
     {
-        $query = $this->buildSelectQuery($specification);
-        $count = $query->count('*', $this->db);
-
-        return $count;
+        return $this->buildSelectQuery($specification)->count('*', $this->db);
     }
 
     public function queryAll(Specification $specification)
