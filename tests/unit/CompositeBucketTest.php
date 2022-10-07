@@ -37,7 +37,8 @@ class CompositeBucketTest extends TestCase
 
     public function testPrimaryUseCase()
     {
-        $bucket = CompositeBucket::fromRows($this->getTestUsers(), ['client_id', 'currency']);
+        $users = $this->getTestUsers();
+        $bucket = CompositeBucket::fromRows($users, ['client_id', 'currency']);
         $this->assertSame([1,2,3,4], $bucket->getKeys('client_id'));
         $this->assertSame(['usd', 'eur', 'pln'], $bucket->getKeys('currency'));
 
@@ -45,13 +46,16 @@ class CompositeBucketTest extends TestCase
         $bucket->fill($bills, ['client_id' => 'client_id', 'currency' => 'currency']);
         $bucket->pour($users, 'bills');
 
+        $processedBillsCount = 0;
         foreach ($users as $user) {
             foreach ($user['bills'] as $key => $bill) {
+                $processedBillsCount++;
                 $this->assertLessThan(1000, $key);
                 $this->assertSame($user['client_id'], $bill['client_id']);
                 $this->assertSame($user['currency'], $bill['currency']);
             }
         }
+        $this->assertSame(count($bills), $processedBillsCount, 'All bills should be processed');
     }
 
     public function testPourAsAssociativeArray(): void
@@ -63,13 +67,16 @@ class CompositeBucketTest extends TestCase
         $bucket->fill($bills, ['client_id' => 'client_id', 'currency' => 'currency'], 'id');
         $bucket->pour($users, 'bills');
 
+        $processedBillsCount = 0;
         foreach ($users as $user) {
             foreach ($user['bills'] as $key => $bill) {
+                $processedBillsCount++;
                 $this->assertGreaterThan(1000, $key);
                 $this->assertSame($user['client_id'], $bill['client_id']);
                 $this->assertSame($user['currency'], $bill['currency']);
             }
         }
+        $this->assertSame(count($bills), $processedBillsCount, 'All bills should be processed');
     }
 
     public function testGetKeysOnNonExistingKeyReturnsError(): void

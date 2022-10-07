@@ -112,11 +112,12 @@ class CompositeBucket
                     } else {
                         $row[$relationName][] = $entity;
                     }
-                    continue 2;
                 }
             }
 
-            $row[$relationName] = null;
+            if (!isset($row[$relationName])) {
+                $row[$relationName] = null;
+            }
         }
     }
 
