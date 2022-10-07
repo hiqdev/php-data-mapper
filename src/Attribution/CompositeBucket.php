@@ -97,26 +97,30 @@ class CompositeBucket
 
     public function pour(&$rows, $relationName): void
     {
-        foreach ($rows as &$row) {
-            foreach ($this->entities as $entity) {
+        foreach ($this->entities as &$entity) {
+            foreach ($rows as &$row) {
                 $match = true;
                 foreach ($this->keyMap as $entityKey => $bucketKey) {
-                    if ($row[$bucketKey] !== $entity[$entityKey]) {
+                    if ((string) $row[$bucketKey] !== (string) $entity[$entityKey]) {
+                        $false[] = [
+                            'row' => $row[$bucketKey],
+                            'ent' => $entity[$entityKey],
+                            'key' => $entityKey,
+                        ];
                         $match = false;
                         break;
                     }
                 }
+
                 if ($match) {
                     if ($this->entityIdKey !== null) {
                         $row[$relationName][$entity[$this->entityIdKey]] = $entity;
                     } else {
                         $row[$relationName][] = $entity;
                     }
-                    continue 2;
+                    break;
                 }
             }
-
-            $row[$relationName] = null;
         }
     }
 
