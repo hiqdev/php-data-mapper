@@ -144,10 +144,9 @@ abstract class BaseRepository extends Component implements RepositoryInterface
         return $result;
     }
 
-    /// TODO rename
     public function findAllRelations(Specification $specification, array $rows)
     {
-        if (!is_array($specification->with)) {
+        if (!is_array($specification->with) || empty($rows)) {
             return $rows;
         }
 
