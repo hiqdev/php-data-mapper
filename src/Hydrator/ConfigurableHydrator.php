@@ -10,6 +10,7 @@
 
 namespace hiqdev\DataMapper\Hydrator;
 
+use AllowDynamicProperties;
 use Laminas\Hydrator\ExtractionInterface;
 use Laminas\Hydrator\HydrationInterface;
 use Laminas\Hydrator\HydratorAwareInterface;
@@ -23,6 +24,7 @@ use Psr\Container\ContainerInterface;
  *
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
+#[AllowDynamicProperties]
 class ConfigurableHydrator implements HydratorInterface
 {
     /**
