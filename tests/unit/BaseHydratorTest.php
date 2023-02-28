@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\yii\DataMapper\tests\unit;
+namespace hiqdev\DataMapper\tests\unit;
 
 use Laminas\Hydrator\HydratorInterface;
 
