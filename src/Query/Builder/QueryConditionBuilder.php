@@ -66,6 +66,10 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
                 return [$field->getSql() => $this->ensureConditionValueIsValid($field, 'in', $value)];
             }
 
+            if ($value === null) {
+                return [$field->getSql() => null];
+            }
+
             $operatorMap = [
                 'eq' => '=',
                 'ne' => '!=',
