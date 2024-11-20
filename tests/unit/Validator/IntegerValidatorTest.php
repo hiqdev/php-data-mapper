@@ -16,18 +16,12 @@ class IntegerValidatorTest extends TestCase
 
     /**
      * @dataProvider numericValuesProvider
-     * Test the normalize method with numeric values.
      */
     public function testNormalizeWithNumericValues($input, $expected): void
     {
         $this->assertSame($expected, $this->validator->normalize($input));
     }
 
-    /**
-     * Data provider for numeric values.
-     *
-     * @return array
-     */
     public function numericValuesProvider(): iterable
     {
         yield 'integer as string' => ['123', 123];
@@ -39,18 +33,12 @@ class IntegerValidatorTest extends TestCase
 
     /**
      * @dataProvider nonNumericValuesProvider
-     * Test the normalize method with non-numeric values.
      */
     public function testNormalizeWithNonNumericValues($input): void
     {
         $this->assertNull($this->validator->normalize($input));
     }
 
-    /**
-     * Data provider for non-numeric values.
-     *
-     * @return array
-     */
     public function nonNumericValuesProvider(): iterable
     {
         yield 'string with letters' => ['abc'];
