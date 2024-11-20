@@ -24,6 +24,10 @@ class IntegerValidator extends NumberValidator implements NormalizerInterface
 
     public function normalize($value)
     {
-        return (int)$value;
+        if (is_numeric($value)) {
+            return (int)$value;
+        }
+
+        return null;
     }
 }
