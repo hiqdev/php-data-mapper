@@ -44,7 +44,7 @@ class DateTimeValidator extends DateValidator implements NormalizerInterface
         $value = str_replace(" ", "+", $value);
         $date = DateTime::createFromFormat("Y-m-d\TH:i:sT", $value, new DateTimeZone($this->timeZone));
         $errors = DateTime::getLastErrors();
-        if ($date === false || $errors['error_count'] || $errors['warning_count']) {
+        if ($date === false || !empty($errors['error_count']) || !empty($errors['warning_count'])) {
             return false;
         }
 
