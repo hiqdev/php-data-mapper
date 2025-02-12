@@ -10,6 +10,8 @@
 
 namespace hiqdev\DataMapper\Repository;
 
+use hiqdev\DataMapper\Events\EntitiesSavedEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use yii\di\Container;
 use Laminas\Hydrator\HydratorInterface;
 
@@ -35,12 +37,16 @@ class EntityManager implements EntityManagerInterface
      */
     protected $di;
 
+    protected ?EventDispatcherInterface $eventDispatcher;
+
     public function __construct(
         Container $di,
-        HydratorInterface $hydrator
+        HydratorInterface $hydrator,
+        ?EventDispatcherInterface $eventDispatcher = null
     ) {
         $this->di = $di;
         $this->hydrator = $hydrator;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function getEntityClass($repo)
@@ -114,6 +120,11 @@ class EntityManager implements EntityManagerInterface
         /// });
         foreach ($entities as $entity) {
             $this->save($entity);
+        }
+
+        // Dispatch event after all entities are saved
+        if ($this->eventDispatcher) {
+            $this->eventDispatcher->dispatch(new EntitiesSavedEvent($entities));
         }
     }
 
