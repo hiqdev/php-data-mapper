@@ -45,6 +45,7 @@
     ],
     "require": {
         "ocramius/generated-hydrator": "^4.6.0",
+        "nikic/php-parser": "5.4.0 as 4.16.0",
         "psr/container": "^1.0"
     },
     "require-dev": {
