@@ -142,7 +142,7 @@ class EntityManager implements EntityManagerInterface
         return $this->hydrator->extract($object);
     }
 
-    public function registerHydtator($className, $hydrator): void
+    public function registerHydrator($className, $hydrator): void
     {
         $this->hydrator->registerHydrator($className, $hydrator);
     }
