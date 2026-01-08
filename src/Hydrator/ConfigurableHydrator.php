@@ -50,7 +50,7 @@ class ConfigurableHydrator implements HydratorInterface
             throw new NotConfiguredException('Hydrator for "' . $className . '" is not configured');
         }
         if (empty($this->hydrators[$className])) {
-            $this->hydrators[$className] = $hydrator;
+            $this->registerHydrator($className, $hydrator);
         }
         if (!is_object($this->hydrators[$className])) {
             $this->hydrators[$className] = $this->di->get($this->hydrators[$className]);
@@ -60,6 +60,15 @@ class ConfigurableHydrator implements HydratorInterface
         }
 
         return $this->hydrators[$className];
+    }
+
+    /**
+     * @param class-string<object> $className
+     * @param class-string<HydratorInterface>|HydrationInterface|null $hydrator
+     */
+    public function registerHydrator($className, $hydrator): void
+    {
+        $this->hydrators[$className] = $hydrator;
     }
 
     /**

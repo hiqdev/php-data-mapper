@@ -28,4 +28,6 @@ interface EntityManagerInterface
      * @return object
      */
     public function hydrate(array $data, $object);
+
+    public function registerHydrator($className, $hydrator): void;
 }
