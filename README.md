@@ -4,9 +4,6 @@
 
 [![Latest Stable Version](https://poser.pugx.org/hiqdev/php-data-mapper/v/stable)](https://packagist.org/packages/hiqdev/php-data-mapper)
 [![Total Downloads](https://poser.pugx.org/hiqdev/php-data-mapper/downloads)](https://packagist.org/packages/hiqdev/php-data-mapper)
-[![Build Status](https://img.shields.io/travis/hiqdev/php-data-mapper.svg)](https://travis-ci.org/hiqdev/php-data-mapper)
-[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hiqdev/php-data-mapper.svg)](https://scrutinizer-ci.com/g/hiqdev/php-data-mapper/)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/php-data-mapper.svg)](https://scrutinizer-ci.com/g/hiqdev/php-data-mapper/)
 [![Dependency Status](https://www.versioneye.com/php/hiqdev:php-data-mapper/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:php-data-mapper/dev-master)
 
 [Data Mapper] based on Yii2 data base abstraction.
