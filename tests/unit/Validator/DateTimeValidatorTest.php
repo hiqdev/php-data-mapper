@@ -3,19 +3,24 @@
 namespace hiqdev\DataMapper\tests\unit\Validator;
 
 use hiqdev\DataMapper\Validator\DateTimeValidator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use yii\base\Model;
 
 class DateTimeValidatorTest extends TestCase
 {
+    private DateTimeValidator $validator;
+
     public function setUp(): void
     {
-        $this->validator = new DateTimeValidator();
+        // No Yii application here: use the defaults an application would set.
+        $this->validator = new DateTimeValidator([
+            'timeZone' => date_default_timezone_get(),
+            'locale' => 'en-US',
+        ]);
     }
 
-    /**
-     * @dataProvider valuesProvider
-     */
+    #[DataProvider('valuesProvider')]
     public function testValueValidation($date, $expectedErrorMessage = null)
     {
         $model = $this->createModel();
@@ -30,7 +35,7 @@ class DateTimeValidatorTest extends TestCase
         $this->assertSame($date, $model->date);
     }
 
-    public function valuesProvider(): array
+    public static function valuesProvider(): array
     {
         return [
             'date w/o TZ' => ['2024-08-16T12:45:05'],
