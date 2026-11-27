@@ -108,7 +108,10 @@ class ConfigurableHydrator implements HydratorInterface
         );
     }
 
-    /** {@inheritdoc} */
+    /**
+     * @param object|class-string $object
+     * @return object
+     */
     public function hydrate(array $data, $object)
     {
         if (is_object($object)) {

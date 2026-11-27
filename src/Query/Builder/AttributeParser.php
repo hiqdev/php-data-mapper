@@ -35,6 +35,7 @@ class AttributeParser implements AttributeParserInterface
         // If the suffix is in the list of acceptable suffix filer conditions
         if (isset($matches[3]) && in_array($matches[3], $field->getAttribute()->getSupportedOperators(), true)) {
             $operator = $matches[3];
+            /** @psalm-suppress PossiblyUndefinedIntArrayOffset */
             $key = $matches[1];
         }
 

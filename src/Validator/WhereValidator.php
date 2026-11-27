@@ -10,10 +10,9 @@
 
 namespace hiqdev\DataMapper\Validator;
 
-use hiapi\commands\SearchCommand;
-use hiqdev\DataMapper\Attribute\AttributeInterface;
 use hiqdev\DataMapper\Attribution\AttributionInterface;
 use hiqdev\DataMapper\Repository\EntityManagerInterface;
+use yii\base\Model;
 use yii\validators\Validator;
 
 class WhereValidator extends Validator
@@ -33,7 +32,7 @@ class WhereValidator extends Validator
     }
 
     /**
-     * @param SearchCommand $model
+     * @param Model $model
      * @param string $attribute
      */
     public function validateAttribute($model, $attribute): bool
@@ -61,6 +60,10 @@ class WhereValidator extends Validator
             ->getAttribution();
     }
 
+    /**
+     * @psalm-suppress InvalidNullableReturnType
+     * @psalm-suppress NullableReturnStatement
+     */
     private function buildDynamicAttribution(AttributionInterface $attribution): DynamicValidationModel
     {
         return $this->unwrapAttributes($attribution);
@@ -74,7 +77,6 @@ class WhereValidator extends Validator
 
         $dynamicAttribution = new DynamicValidationModel();
         foreach ($attribution->attributes() as $baseAttributeName => $attributeClassName) {
-            /** @var AttributeInterface $attribute */
             $attribute = new $attributeClassName();
             foreach ($attribute->getSupportedOperators() as $operator) {
                 $attributeName = $baseAttributeName . ($operator === '' ? '' : "_$operator");
@@ -101,7 +103,7 @@ class WhereValidator extends Validator
     private int $relationNestingLimit = 3;
 
     /**
-     * @psalm-param list<array{0: string, 1: class-name<AttributionInterface>}> $parents
+     * @psalm-param list<array{0: string, 1: class-string<AttributionInterface>}> $parents
      */
     private function circularReferenceDetected(array $parents): bool
     {

@@ -66,7 +66,10 @@ trait GeneratedHydratorTrait
         return $object ? $this->hydrator->extract($object) : null;
     }
 
-    /** {@inheritdoc} */
+    /**
+     * @param object|class-string $object
+     * @return object
+     */
     public function hydrate(array $data, $object)
     {
         return $this->getGeneratedHydrator($object)->hydrate($data, $object);

@@ -72,7 +72,7 @@ final class QueryBuilder
     {
         $fields = $this->query->getFields();
 
-        foreach ($flat = $this->flattenArray($specification->where) as $key => $value) {
+        foreach ($this->flattenArray($specification->where) as $key => $value) {
             foreach ($fields as $field) {
                 if ($this->queryConditionBuilder->canApply($field, (string) $key, $value)) {
                     $where = $this->queryConditionBuilder->build($field, (string) $key, $value);

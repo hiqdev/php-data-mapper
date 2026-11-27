@@ -52,7 +52,7 @@ class NestedModelValidator extends Validator
     }
 
     /**
-     * @param Model $model
+     * @param mixed $model
      * @return array|null
      */
     protected function validateValue($model)

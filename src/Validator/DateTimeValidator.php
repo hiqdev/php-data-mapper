@@ -37,7 +37,7 @@ class DateTimeValidator extends DateValidator implements NormalizerInterface
     }
 
     /**
-     * @return bool|int
+     * @return false|int
      */
     private function parseExtendedDateValue(string $value)
     {

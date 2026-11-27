@@ -59,7 +59,7 @@ abstract class BaseRepository extends Component implements RepositoryInterface
 
     /**
      * Selects entities from DB by given IDs.
-     * @param string[] $ids
+     * @param array<int|string> $ids
      */
     public function findByIds(array $ids): array
     {
