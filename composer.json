@@ -53,7 +53,7 @@
         "hiqdev/hidev-hiqdev": "dev-master",
         "phpunit/phpunit": "^12.0",
         "opis/closure": "3.x-dev as 3.6.x-dev",
-        "vimeo/psalm": "^6.0",
+        "vimeo/psalm": "^6.14",
         "hiqdev/yii-compat": "dev-master",
         "psr/event-dispatcher": "^1.0"
     },
