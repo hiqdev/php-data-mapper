@@ -17,10 +17,7 @@ class AttributeValidationException extends \RuntimeException
         return 'Validation exception';
     }
 
-    /**
-     * @psalm-suppress PossiblyUnusedParam
-     */
-    public static function forValue($value, $message)
+    public static function forValue($value)
     {
         return new self('Value ' . json_encode($value) . ' is invalid');
     }
