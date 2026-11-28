@@ -13,6 +13,7 @@ namespace hiqdev\DataMapper\Attribute;
 interface AttributeInterface
 {
     /**
+     * @return array{0: string, ...<array-key, mixed>}
      * @throws UnsupportedOperatorException when operator is not supported
      */
     public function getRuleForOperator(string $operator): array;

@@ -15,18 +15,18 @@ use hiqdev\DataMapper\Attribution\AttributionInterface;
 class FieldFactory implements FieldFactoryInterface
 {
     /**
-     * @param AttributionInterface $model
+     * @param AttributionInterface $attribution
      * @param $map
      * @param string[] parent attribute names
      * @return Field[]
      */
-    public function createByAttribution($model, $map, array $parents = [])
+    public function createByAttribution($attribution, $map, array $parents = [])
     {
         $result = [];
 
         foreach ($map as $attributeName => $definition) {
             if (is_array($definition)) {
-                $relationClass = $model->getRelation($attributeName);
+                $relationClass = $attribution->getRelation($attributeName);
                 $result = array_merge($result, $this->createByAttribution(
                     new $relationClass(),
                     $definition,
@@ -38,7 +38,7 @@ class FieldFactory implements FieldFactoryInterface
             if ($definition instanceof FieldInterface) {
                 $result[] = $definition;
             } else {
-                $result[] = $this->buildField($model, $attributeName, $definition, $parents);
+                $result[] = $this->buildField($attribution, $attributeName, $definition, $parents);
             }
         }
 

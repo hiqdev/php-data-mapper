@@ -41,32 +41,34 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
     }
 
     /** {@inheritdoc} */
-    public function build(FieldInterface $field, string $key, $value)
+    public function build(FieldInterface $field, string $attribute, $value)
     {
         if (isset($this->builderMap[get_class($field)])) {
             $builderClassName = $this->builderMap[get_class($field)];
             $builder = $this->conditionBuilderFactory->build($builderClassName);
 
-            return $builder->build($field, $key, $value);
+            return $builder->build($field, $attribute, $value);
         }
 
-        [$operator, $attribute] = $this->attributeParser->__invoke($field, $key);
+        [$operator, $attributeName] = $this->attributeParser->__invoke($field, $attribute);
         if ($field instanceof FieldConditionBuilderInterface) {
-            return $field->buildCondition($operator, $attribute, $value);
+            return $field->buildCondition($operator, $attributeName, $value);
         }
 
         if ($field instanceof BuilderAwareFieldInterface && $field->getBuilderClass() !== null) {
             return $this->conditionBuilderFactory
                 ->build($field->getBuilderClass())
-                ->build($field, $key, $value);
+                ->build($field, $attribute, $value);
         }
 
         if ($field instanceof SQLFieldInterface) {
             if (is_iterable($value)) {
+                /** @psalm-suppress InvalidArrayOffset */
                 return [$field->getSql() => $this->ensureConditionValueIsValid($field, 'in', $value)];
             }
 
             if ($value === null) {
+                /** @psalm-suppress InvalidArrayOffset */
                 return [$field->getSql() => null];
             }
 
@@ -89,27 +91,31 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
         throw new \BadMethodCallException(sprintf('The passed field %s can not be built', $field->getName()));
     }
 
-    public function canApply(FieldInterface $field, string $key, $value): bool
+    /**
+     * @psalm-suppress InvalidNullableReturnType
+     */
+    public function canApply(FieldInterface $field, string $attribute, $value): bool
     {
         if (isset($this->builderMap[get_class($field)])) {
             $builderClassName = $this->builderMap[get_class($field)];
             $builder = $this->conditionBuilderFactory->build($builderClassName);
 
-            $canApply = $builder->canApply($field, $key, $value);
+            $canApply = $builder->canApply($field, $attribute, $value);
             if ($canApply !== null) {
                 return $canApply;
             }
         }
 
         if ($field instanceof BuilderAwareFieldInterface && $field->getBuilderClass() !== null) {
+            /** @psalm-suppress NullableReturnStatement */
             return $this->conditionBuilderFactory
                 ->build($field->getBuilderClass())
-                ->canApply($field, $key, $value);
+                ->canApply($field, $attribute, $value);
         }
 
-        [, $attribute] = $this->attributeParser->__invoke($field, $key);
+        [, $attributeName] = $this->attributeParser->__invoke($field, $attribute);
 
-        return $attribute === $field->getName();
+        return $attributeName === $field->getName();
     }
 
     /**

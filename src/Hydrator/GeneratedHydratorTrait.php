@@ -44,6 +44,7 @@ trait GeneratedHydratorTrait
      * @param string|object $object
      * @return object
      *
+     * @psalm-param array|T|null $data
      * @psalm-param class-string<T>|T $object
      * @psalm-return T
      * @template T of object
