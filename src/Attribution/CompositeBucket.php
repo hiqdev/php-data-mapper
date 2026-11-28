@@ -29,7 +29,7 @@ class CompositeBucket
      */
     private array $entities;
     /**
-     * @var array<string, array> the map of entity keys to bucket keys. The key is the entity key, the value is the bucket key.
+     * @var array<string, string> the map of entity keys to bucket keys. The key is the entity key, the value is the bucket key.
      * For example, if the entity has a key `id` and the bucket has a key `user_id`, the map will be `['id' => 'user_id']`.
      */
     private array $keyMap;

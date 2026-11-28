@@ -44,6 +44,7 @@ trait GeneratedHydratorTrait
      * @param string|object $object
      * @return object
      *
+     * @psalm-param array|T|null $data
      * @psalm-param class-string<T>|T $object
      * @psalm-return T
      * @template T of object
@@ -66,7 +67,10 @@ trait GeneratedHydratorTrait
         return $object ? $this->hydrator->extract($object) : null;
     }
 
-    /** {@inheritdoc} */
+    /**
+     * @param object|class-string $object
+     * @return object
+     */
     public function hydrate(array $data, $object)
     {
         return $this->getGeneratedHydrator($object)->hydrate($data, $object);

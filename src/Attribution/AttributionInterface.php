@@ -28,7 +28,7 @@ interface AttributionInterface
     public function hasRelation(string $name): bool;
 
     /**
-     * @return array<string, class-string<AttributeInterface>>
+     * @return array<string, class-string<AttributeInterface>|AttributeInterface>
      */
     public function attributes();
 

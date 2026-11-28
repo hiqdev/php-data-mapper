@@ -13,12 +13,13 @@ namespace hiqdev\DataMapper\Repository;
 use hiqdev\DataMapper\Events\EntitiesSavedEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use yii\di\Container;
+use hiqdev\DataMapper\Hydrator\ConfigurableHydrator;
 use Laminas\Hydrator\HydratorInterface;
 
 class EntityManager implements EntityManagerInterface
 {
     /**
-     * @var BaseRepository[]
+     * @var array<string, BaseRepository|class-string<BaseRepository>>
      */
     public $repositories = [];
 
@@ -28,7 +29,7 @@ class EntityManager implements EntityManagerInterface
     protected $entities;
 
     /**
-     * @var HydratorInterface
+     * @var ConfigurableHydrator
      */
     protected $hydrator;
 
@@ -39,6 +40,9 @@ class EntityManager implements EntityManagerInterface
 
     protected ?EventDispatcherInterface $eventDispatcher;
 
+    /**
+     * @param ConfigurableHydrator $hydrator
+     */
     public function __construct(
         Container $di,
         HydratorInterface $hydrator,

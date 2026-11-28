@@ -13,7 +13,7 @@ namespace hiqdev\DataMapper\Validator;
 interface AttributeValidatorFactoryInterface
 {
     /**
-     * @param string|array $definition
+     * @param string|array{0: string|\Closure, ...<array-key, mixed>} $definition
      */
     public function createByDefinition($definition): AttributeValidator;
 }

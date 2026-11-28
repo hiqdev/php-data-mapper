@@ -109,7 +109,7 @@ trait ActiveQueryTrait
     /**
      * Converts found rows into model instances.
      * @param array $rows
-     * @return array|ActiveRecord[]
+     * @return array
      * @since 2.0.11
      */
     protected function createModels($rows)
@@ -135,18 +135,19 @@ trait ActiveQueryTrait
      * Finds records corresponding to one or multiple relations and populates them into the primary models.
      * @param array $with a list of relations that this query should be performed with. Please
      * refer to [[with()]] for details about specifying this parameter.
-     * @param array|ActiveRecord[] $models the primary models (can be either AR instances or arrays)
+     * @param array $models the primary models (can be either AR instances or arrays)
      */
     public function findWith($with, &$models)
     {
         $primaryModel = reset($models);
+        /** @psalm-suppress UndefinedClass */
         if (!$primaryModel instanceof ActiveRecordInterface) {
             /* @var $modelClass ActiveRecordInterface */
             $modelClass = $this->modelClass;
             $primaryModel = $modelClass::instance();
         }
         $relations = $this->normalizeRelations($primaryModel, $with);
-        /* @var $relation ActiveQuery */
+        /** @var \yii\db\ActiveQuery $relation */
         foreach ($relations as $name => $relation) {
             if ($relation->asArray === null) {
                 // inherit asArray from primary query
@@ -157,9 +158,9 @@ trait ActiveQueryTrait
     }
 
     /**
-     * @param ActiveRecord $model
+     * @param \yii\db\ActiveRecord $model
      * @param array $with
-     * @return ActiveQueryInterface[]
+     * @return array<\yii\db\ActiveQueryInterface|null>
      */
     private function normalizeRelations($model, $with)
     {

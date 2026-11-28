@@ -52,17 +52,19 @@ class NestedModelValidator extends Validator
     }
 
     /**
-     * @param Model $model
+     * @param mixed $value
      * @return array|null
      */
-    protected function validateValue($model)
+    protected function validateValue($value)
     {
-        if (!$model instanceof Model) {
+        if (!$value instanceof Model) {
             throw new \RuntimeException('Passed value must be instance of Model');
         }
 
-        if (!$model->validate()) {
-            return [reset($model->getFirstErrors()), []]; // todo: return more than one error
+        if (!$value->validate()) {
+            $firstErrors = $value->getFirstErrors();
+
+            return [reset($firstErrors), []]; // todo: return more than one error
         }
 
         return null;

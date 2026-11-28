@@ -39,7 +39,7 @@ class JsonConditionBuilder implements QueryConditionBuilderInterface
         }
 
         // TODO: drop after QueryConditionBuilderInterface get changed
-        [$operator, $key] = $this->attributeParser->__invoke($field, $attribute);
+        [$operator] = $this->attributeParser->__invoke($field, $attribute);
 
         $operatorMap = [
             'has' => '@>',

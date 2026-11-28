@@ -22,6 +22,14 @@ abstract class BaseRepository extends Component implements RepositoryInterface
      */
     public $queryClass;
 
+    /**
+     * @var string|null
+     */
+    private $recordClass;
+
+    /**
+     * @param EntityManager $em
+     */
     public function __construct(protected ConnectionInterface $db, protected EntityManagerInterface $em, array $config = [])
     {
         parent::__construct($config);
@@ -59,7 +67,7 @@ abstract class BaseRepository extends Component implements RepositoryInterface
 
     /**
      * Selects entities from DB by given IDs.
-     * @param string[] $ids
+     * @param array<int|string> $ids
      */
     public function findByIds(array $ids): array
     {

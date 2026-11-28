@@ -34,7 +34,7 @@ abstract class AbstractAttribution implements AttributionInterface
     /**
      * @param string $name
      * @throws RuntimeException
-     * @return string
+     * @return class-string<AttributionInterface>
      */
     public function getRelation($name)
     {

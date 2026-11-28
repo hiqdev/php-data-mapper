@@ -32,6 +32,8 @@ class ConfigurableHydrator implements HydratorInterface
      */
     public array $hydrators = []; // TODO: make private after composer-config-plugin merging fix
 
+    private ContainerInterface $di;
+
     public function __construct(ContainerInterface $di, array $hydrators = [])
     {
         $this->di = $di;
@@ -108,7 +110,10 @@ class ConfigurableHydrator implements HydratorInterface
         );
     }
 
-    /** {@inheritdoc} */
+    /**
+     * @param object|class-string $object
+     * @return object
+     */
     public function hydrate(array $data, $object)
     {
         if (is_object($object)) {
